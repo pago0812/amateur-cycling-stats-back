@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "race_categories",
+  "info": {
+    "singularName": "race-category",
+    "pluralName": "race-categories",
+    "displayName": "Race category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

@@ -369,12 +369,13 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiEventEvent extends Struct.CollectionTypeSchema {
-  collectionName: 'events';
+export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
+  collectionName: 'countries';
   info: {
-    displayName: 'Event';
-    pluralName: 'events';
-    singularName: 'event';
+    description: '';
+    displayName: 'Country';
+    pluralName: 'countries';
+    singularName: 'country';
   };
   options: {
     draftAndPublish: true;
@@ -384,9 +385,221 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::country.country'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    states: Schema.Attribute.Relation<'oneToMany', 'api::state.state'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCyclistCyclist extends Struct.CollectionTypeSchema {
+  collectionName: 'cyclists';
+  info: {
+    description: '';
+    displayName: 'Cyclist';
+    pluralName: 'cyclists';
+    singularName: 'cyclist';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cyclist.cyclist'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    raceResults: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-result.race-result'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    description: '';
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    country: Schema.Attribute.Relation<'oneToOne', 'api::country.country'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dateTime: Schema.Attribute.DateTime;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    races: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
+    state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    year: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiRaceCategoryRaceCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'race_categories';
+  info: {
+    description: '';
+    displayName: 'Race category';
+    pluralName: 'race-categories';
+    singularName: 'race-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category.race-category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRaceResultRaceResult extends Struct.CollectionTypeSchema {
+  collectionName: 'race_results';
+  info: {
+    description: '';
+    displayName: 'Race result';
+    pluralName: 'race-results';
+    singularName: 'race-result';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cyclist: Schema.Attribute.Relation<'manyToOne', 'api::cyclist.cyclist'>;
+    duration: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-result.race-result'
+    > &
+      Schema.Attribute.Private;
+    place: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRaceRace extends Struct.CollectionTypeSchema {
+  collectionName: 'races';
+  info: {
+    description: '';
+    displayName: 'Race';
+    pluralName: 'races';
+    singularName: 'race';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    event: Schema.Attribute.Relation<'manyToOne', 'api::event.event'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    raceCategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::race-category.race-category'
+    >;
+    raceResults: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-result.race-result'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStateState extends Struct.CollectionTypeSchema {
+  collectionName: 'states';
+  info: {
+    displayName: 'State';
+    pluralName: 'states';
+    singularName: 'state';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    country: Schema.Attribute.Relation<'manyToOne', 'api::country.country'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::state.state'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -854,6 +1067,7 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cyclist: Schema.Attribute.Relation<'oneToOne', 'api::cyclist.cyclist'>;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -899,7 +1113,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::country.country': ApiCountryCountry;
+      'api::cyclist.cyclist': ApiCyclistCyclist;
       'api::event.event': ApiEventEvent;
+      'api::race-category.race-category': ApiRaceCategoryRaceCategory;
+      'api::race-result.race-result': ApiRaceResultRaceResult;
+      'api::race.race': ApiRaceRace;
+      'api::state.state': ApiStateState;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event",
     "pluralName": "events",
-    "displayName": "Event"
+    "displayName": "Event",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,6 +15,32 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "dateTime": {
+      "type": "datetime"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "state": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
+    },
+    "races": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::race.race",
+      "mappedBy": "event"
     }
   }
 }
