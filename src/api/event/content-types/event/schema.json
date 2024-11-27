@@ -41,6 +41,10 @@
       "relation": "oneToMany",
       "target": "api::race.race",
       "mappedBy": "event"
+    },
+    "displayName": {
+      "type": "string",
+      "private": true
     }
   }
 }
