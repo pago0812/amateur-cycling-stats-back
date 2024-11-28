@@ -29,6 +29,9 @@
       "relation": "oneToMany",
       "target": "api::race-result.race-result",
       "mappedBy": "cyclist"
+    },
+    "displayName": {
+      "type": "string"
     }
   }
 }

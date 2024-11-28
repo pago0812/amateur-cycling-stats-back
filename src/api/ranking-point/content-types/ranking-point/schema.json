@@ -18,14 +18,13 @@
     "points": {
       "type": "integer"
     },
-    "raceRanking": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::race-ranking.race-ranking",
-      "inversedBy": "ranking_points"
-    },
     "displayName": {
       "type": "string"
+    },
+    "raceRanking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::race-ranking.race-ranking"
     }
   }
 }

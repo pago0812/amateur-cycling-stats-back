@@ -4,7 +4,8 @@
   "info": {
     "singularName": "race-ranking",
     "pluralName": "race-rankings",
-    "displayName": "Race ranking"
+    "displayName": "Race ranking",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,12 +14,6 @@
   "attributes": {
     "name": {
       "type": "string"
-    },
-    "ranking_points": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::ranking-point.ranking-point",
-      "mappedBy": "raceRanking"
     }
   }
 }

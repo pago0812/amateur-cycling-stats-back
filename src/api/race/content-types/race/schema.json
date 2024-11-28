@@ -38,6 +38,11 @@
     },
     "displayName": {
       "type": "string"
+    },
+    "raceRanking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::race-ranking.race-ranking"
     }
   }
 }

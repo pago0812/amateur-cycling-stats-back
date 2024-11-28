@@ -414,6 +414,7 @@ export interface ApiCyclistCyclist extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
     lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -503,6 +504,7 @@ export interface ApiRaceCategoryRaceCategory
 export interface ApiRaceRankingRaceRanking extends Struct.CollectionTypeSchema {
   collectionName: 'race_rankings';
   info: {
+    description: '';
     displayName: 'Race ranking';
     pluralName: 'race-rankings';
     singularName: 'race-ranking';
@@ -522,10 +524,6 @@ export interface ApiRaceRankingRaceRanking extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    ranking_points: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::ranking-point.ranking-point'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -602,6 +600,10 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::race-category.race-category'
     >;
+    raceRanking: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::race-ranking.race-ranking'
+    >;
     raceResults: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-result.race-result'
@@ -639,7 +641,7 @@ export interface ApiRankingPointRankingPoint
     points: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     raceRanking: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'api::race-ranking.race-ranking'
     >;
     updatedAt: Schema.Attribute.DateTime;
