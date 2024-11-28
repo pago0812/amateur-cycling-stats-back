@@ -455,7 +455,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     dateTime: Schema.Attribute.DateTime;
     description: Schema.Attribute.Text;
-    displayName: Schema.Attribute.String & Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
@@ -500,6 +500,38 @@ export interface ApiRaceCategoryRaceCategory
   };
 }
 
+export interface ApiRaceRankingRaceRanking extends Struct.CollectionTypeSchema {
+  collectionName: 'race_rankings';
+  info: {
+    displayName: 'Race ranking';
+    pluralName: 'race-rankings';
+    singularName: 'race-ranking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-ranking.race-ranking'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    ranking_points: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ranking-point.ranking-point'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRaceResultRaceResult extends Struct.CollectionTypeSchema {
   collectionName: 'race_results';
   info: {
@@ -532,6 +564,10 @@ export interface ApiRaceResultRaceResult extends Struct.CollectionTypeSchema {
       >;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    rankingPoint: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::ranking-point.ranking-point'
+    >;
     time: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -555,6 +591,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    displayName: Schema.Attribute.String;
     event: Schema.Attribute.Relation<'manyToOne', 'api::event.event'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'> &
@@ -568,6 +605,42 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     raceResults: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-result.race-result'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRankingPointRankingPoint
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ranking_points';
+  info: {
+    description: '';
+    displayName: 'Ranking point';
+    pluralName: 'ranking-points';
+    singularName: 'ranking-point';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ranking-point.ranking-point'
+    > &
+      Schema.Attribute.Private;
+    place: Schema.Attribute.Integer;
+    points: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    raceRanking: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::race-ranking.race-ranking'
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1111,8 +1184,10 @@ declare module '@strapi/strapi' {
       'api::cyclist.cyclist': ApiCyclistCyclist;
       'api::event.event': ApiEventEvent;
       'api::race-category.race-category': ApiRaceCategoryRaceCategory;
+      'api::race-ranking.race-ranking': ApiRaceRankingRaceRanking;
       'api::race-result.race-result': ApiRaceResultRaceResult;
       'api::race.race': ApiRaceRace;
+      'api::ranking-point.ranking-point': ApiRankingPointRankingPoint;
       'api::state.state': ApiStateState;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

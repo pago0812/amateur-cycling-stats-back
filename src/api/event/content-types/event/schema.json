@@ -43,8 +43,7 @@
       "mappedBy": "event"
     },
     "displayName": {
-      "type": "string",
-      "private": true
+      "type": "string"
     }
   }
 }

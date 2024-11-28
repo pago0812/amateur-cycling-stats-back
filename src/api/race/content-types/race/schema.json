@@ -35,6 +35,9 @@
       "relation": "oneToMany",
       "target": "api::race-result.race-result",
       "mappedBy": "race"
+    },
+    "displayName": {
+      "type": "string"
     }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ranking_points",
+  "info": {
+    "singularName": "ranking-point",
+    "pluralName": "ranking-points",
+    "displayName": "Ranking point",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "place": {
+      "type": "integer"
+    },
+    "points": {
+      "type": "integer"
+    },
+    "raceRanking": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::race-ranking.race-ranking",
+      "inversedBy": "ranking_points"
+    },
+    "displayName": {
+      "type": "string"
+    }
+  }
+}
