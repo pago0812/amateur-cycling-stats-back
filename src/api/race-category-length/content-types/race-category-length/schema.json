@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "race_category_lengths",
+  "info": {
+    "singularName": "race-category-length",
+    "pluralName": "race-category-lengths",
+    "displayName": "Race category length"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

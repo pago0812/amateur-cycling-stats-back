@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "race_category_genders",
+  "info": {
+    "singularName": "race-category-gender",
+    "pluralName": "race-category-genders",
+    "displayName": "Race category gender"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

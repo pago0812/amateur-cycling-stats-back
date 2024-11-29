@@ -454,7 +454,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dateTime: Schema.Attribute.DateTime;
+    dateTime: Schema.Attribute.DateTime & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     displayName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -464,10 +464,84 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     races: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
     state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
+    supportedRaceCategoryAges: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category.race-category'
+    >;
+    supportedRaceCategoryGenders: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category-gender.race-category-gender'
+    >;
+    supportedRaceCategoryLengths: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category-length.race-category-length'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     year: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiRaceCategoryGenderRaceCategoryGender
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'race_category_genders';
+  info: {
+    displayName: 'Race category gender';
+    pluralName: 'race-category-genders';
+    singularName: 'race-category-gender';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category-gender.race-category-gender'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRaceCategoryLengthRaceCategoryLength
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'race_category_lengths';
+  info: {
+    displayName: 'Race category length';
+    pluralName: 'race-category-lengths';
+    singularName: 'race-category-length';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::race-category-length.race-category-length'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -476,7 +550,7 @@ export interface ApiRaceCategoryRaceCategory
   collectionName: 'race_categories';
   info: {
     description: '';
-    displayName: 'Race category';
+    displayName: 'Race category age';
     pluralName: 'race-categories';
     singularName: 'race-category';
   };
@@ -596,9 +670,17 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    raceCategory: Schema.Attribute.Relation<
+    raceCategoryAge: Schema.Attribute.Relation<
       'oneToOne',
       'api::race-category.race-category'
+    >;
+    raceCategoryGender: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::race-category-gender.race-category-gender'
+    >;
+    raceCategoryLength: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::race-category-length.race-category-length'
     >;
     raceRanking: Schema.Attribute.Relation<
       'oneToOne',
@@ -1185,6 +1267,8 @@ declare module '@strapi/strapi' {
       'api::country.country': ApiCountryCountry;
       'api::cyclist.cyclist': ApiCyclistCyclist;
       'api::event.event': ApiEventEvent;
+      'api::race-category-gender.race-category-gender': ApiRaceCategoryGenderRaceCategoryGender;
+      'api::race-category-length.race-category-length': ApiRaceCategoryLengthRaceCategoryLength;
       'api::race-category.race-category': ApiRaceCategoryRaceCategory;
       'api::race-ranking.race-ranking': ApiRaceRankingRaceRanking;
       'api::race-result.race-result': ApiRaceResultRaceResult;

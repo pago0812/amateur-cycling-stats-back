@@ -25,7 +25,7 @@
     "description": {
       "type": "text"
     },
-    "raceCategory": {
+    "raceCategoryAge": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::race-category.race-category"
@@ -43,6 +43,16 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::race-ranking.race-ranking"
+    },
+    "raceCategoryGender": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::race-category-gender.race-category-gender"
+    },
+    "raceCategoryLength": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::race-category-length.race-category-length"
     }
   }
 }

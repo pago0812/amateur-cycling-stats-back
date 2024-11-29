@@ -24,7 +24,8 @@
       "type": "text"
     },
     "dateTime": {
-      "type": "datetime"
+      "type": "datetime",
+      "required": true
     },
     "country": {
       "type": "relation",
@@ -44,6 +45,21 @@
     },
     "displayName": {
       "type": "string"
+    },
+    "supportedRaceCategoryAges": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::race-category.race-category"
+    },
+    "supportedRaceCategoryGenders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::race-category-gender.race-category-gender"
+    },
+    "supportedRaceCategoryLengths": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::race-category-length.race-category-length"
     }
   }
 }
