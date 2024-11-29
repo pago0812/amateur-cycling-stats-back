@@ -32,6 +32,9 @@
     },
     "displayName": {
       "type": "string"
+    },
+    "birthday": {
+      "type": "date"
     }
   }
 }

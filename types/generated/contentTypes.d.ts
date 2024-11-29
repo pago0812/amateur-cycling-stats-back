@@ -411,6 +411,7 @@ export interface ApiCyclistCyclist extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    birthday: Schema.Attribute.Date;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
