@@ -46,7 +46,7 @@
     "displayName": {
       "type": "string"
     },
-    "supportedRaceCategoryAges": {
+    "supportedRaceCategories": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::race-category.race-category"

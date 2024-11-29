@@ -464,7 +464,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     races: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
     state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
-    supportedRaceCategoryAges: Schema.Attribute.Relation<
+    supportedRaceCategories: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-category.race-category'
     >;
@@ -550,7 +550,7 @@ export interface ApiRaceCategoryRaceCategory
   collectionName: 'race_categories';
   info: {
     description: '';
-    displayName: 'Race category age';
+    displayName: 'Race category';
     pluralName: 'race-categories';
     singularName: 'race-category';
   };
@@ -670,7 +670,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    raceCategoryAge: Schema.Attribute.Relation<
+    raceCategory: Schema.Attribute.Relation<
       'oneToOne',
       'api::race-category.race-category'
     >;
