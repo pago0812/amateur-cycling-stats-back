@@ -53,6 +53,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::race-category-length.race-category-length"
+    },
+    "dateTime": {
+      "type": "datetime",
+      "required": true
     }
   }
 }

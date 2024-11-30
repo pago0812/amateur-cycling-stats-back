@@ -663,6 +663,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dateTime: Schema.Attribute.DateTime & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     displayName: Schema.Attribute.String;
     event: Schema.Attribute.Relation<'manyToOne', 'api::event.event'>;
