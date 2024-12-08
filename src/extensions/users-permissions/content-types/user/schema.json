@@ -9,7 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -70,6 +70,12 @@
       "relation": "oneToOne",
       "target": "api::cyclist.cyclist",
       "mappedBy": "user"
+    },
+    "organizer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organizer.organizer",
+      "inversedBy": "user"
     }
   }
 }

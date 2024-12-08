@@ -462,6 +462,10 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    organization: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::organization.organization'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     races: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
     state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
@@ -481,6 +485,75 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     year: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiOrganizationOrganization
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'organizations';
+  info: {
+    displayName: 'Organization';
+    pluralName: 'organizations';
+    singularName: 'organization';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::organization.organization'
+    > &
+      Schema.Attribute.Private;
+    members: Schema.Attribute.Relation<'oneToMany', 'api::organizer.organizer'>;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOrganizerOrganizer extends Struct.CollectionTypeSchema {
+  collectionName: 'organizers';
+  info: {
+    description: '';
+    displayName: 'Organizer';
+    pluralName: 'organizers';
+    singularName: 'organizer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lastName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::organizer.organizer'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    organization: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1211,7 +1284,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1232,6 +1304,10 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    organizer: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::organizer.organizer'
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -1269,6 +1345,8 @@ declare module '@strapi/strapi' {
       'api::country.country': ApiCountryCountry;
       'api::cyclist.cyclist': ApiCyclistCyclist;
       'api::event.event': ApiEventEvent;
+      'api::organization.organization': ApiOrganizationOrganization;
+      'api::organizer.organizer': ApiOrganizerOrganizer;
       'api::race-category-gender.race-category-gender': ApiRaceCategoryGenderRaceCategoryGender;
       'api::race-category-length.race-category-length': ApiRaceCategoryLengthRaceCategoryLength;
       'api::race-category.race-category': ApiRaceCategoryRaceCategory;

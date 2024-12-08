@@ -60,6 +60,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::race-category-length.race-category-length"
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization",
+      "inversedBy": "events"
     }
   }
 }
